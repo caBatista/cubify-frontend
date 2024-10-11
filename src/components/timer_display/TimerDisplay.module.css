@@ -1,0 +1,24 @@
+.container {
+  padding: 100px;
+  background-color: rgb(56, 85, 52);
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.text {
+  font-size: 60px;
+  color: rgb(255, 255, 255);
+}
+
+.onHold {
+  color: rgb(51, 255, 0);
+}
+
+.text.onHold {
+  color: rgb(51, 255, 0);
+}
+
+.inCountdown {
+  color: rgb(255, 0, 0);
+}
