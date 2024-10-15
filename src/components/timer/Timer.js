@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Header from "../header/Header";
 import TimerDisplay from "../timer_display/TimerDisplay";
+import RecordedSolves from "../recorded_solves/RecordedSolves";
 import { Scrambow } from "scrambow";
 import Solve from "../../models/Solve";
+import SolveService from "../../services/SolveService";
 import styles from "./Timer.module.css";
 
 const Timer = () => {
@@ -17,6 +19,7 @@ const Timer = () => {
 
   useEffect(() => {
     setScramble(generateScramble());
+    fetchSolves();
   }, []);
 
   useEffect(() => {
@@ -60,7 +63,7 @@ const Timer = () => {
         if (isRunning) {
           const solve = new Solve(1, time, scramble, true);
           console.log(solve);
-          setSolves((prevSolves) => [...prevSolves, solve]);
+          saveSolve(solve);
           setLastSolveTime(time);
           setTime({ seconds: 0, milliseconds: 0 });
           setIsRunning(false);
@@ -94,7 +97,7 @@ const Timer = () => {
         false
       );
       console.log(solve);
-      setSolves((prevSolves) => [...prevSolves, solve]);
+      saveSolve(solve);
       setCountdown(null);
     }
 
@@ -111,6 +114,25 @@ const Timer = () => {
     return totalSeconds.toFixed(2);
   };
 
+  const saveSolve = async (solve) => {
+    try {
+      await SolveService.saveSolve(solve);
+      setSolves((prevSolves) => [...prevSolves, solve]);
+    } catch (error) {
+      console.error("Error saving solve:", error);
+    }
+  };
+
+  const fetchSolves = async () => {
+    try {
+      const response = await SolveService.getSolves();
+      const fetchedSolves = response.content;
+      setSolves(fetchedSolves);
+    } catch (error) {
+      console.error("Error fetching solves:", error);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <Header scramble={scramble} className={styles.header} />
@@ -122,21 +144,7 @@ const Timer = () => {
         lastSolveTime={lastSolveTime}
         className={styles.timerDisplay}
       />
-      <h2 className={styles.recordedSolves}>Recorded Solves</h2>
-      <ul className={styles.solveList}>
-        {solves.map((solve, index) => (
-          <li key={index} className={styles.solveItem}>
-            {solve.valid ? (
-              <span className={styles.solveTime}>
-                {formatTime(solve.time.seconds, solve.time.milliseconds)}
-              </span>
-            ) : (
-              <span className={styles.solveTime}>DNF</span>
-            )}
-            <br />
-          </li>
-        ))}
-      </ul>
+      <RecordedSolves solves={solves} formatTime={formatTime} />
     </div>
   );
 };

@@ -1,0 +1,17 @@
+.recordedSolves {
+  font-size: 1.5em;
+  margin-top: 20px;
+}
+
+.solveList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.solveItem {
+  margin: 5px 0;
+}
+
+.solveTime {
+  font-weight: bold;
+}
