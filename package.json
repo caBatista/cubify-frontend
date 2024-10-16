@@ -7,14 +7,14 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.7",
-    "css-select": "^4.1.3",
-    "nth-check": "^2.1.1",
-    "postcss": "^8.4.47",
+    "css-select": "4.1.3",
+    "nth-check": "2.1.1",
+    "postcss": "8.4.47",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-scripts": "^5.0.1",
     "scrambow": "^1.0.0",
-    "svgo": "^3.3.2",
+    "svgo": "3.3.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -43,9 +43,9 @@
     ]
   },
   "resolutions": {
-    "nth-check": "^2.1.1",
-    "css-select": "^4.1.3",
-    "postcss": "^8.4.47",
-    "svgo": "^3.3.2"
+    "nth-check": "2.1.1",
+    "css-select": "4.1.3",
+    "postcss": "8.4.47",
+    "svgo": "3.3.2"
   }
 }
